@@ -22,8 +22,6 @@ const Navigation: FC = () => {
 }
 export default Navigation
 
-//import { FriendsSvg, HomeSvg, OfferSvg, ShopSvg, TasksSvg } from "@/assets/svg"
-
 interface INavButton {
   selected: boolean
   title: string
