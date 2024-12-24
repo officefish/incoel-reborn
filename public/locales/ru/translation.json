@@ -1,0 +1,17 @@
+{
+    "navigation": {
+        "dashboard": "Панель управления",
+        "settings": "Настройки"
+    },
+    "additional": {
+        "theme": "Тема",
+        "language": "Язык"
+    },
+    "settings": {
+        "title": "Панель настроек"
+    },
+    "dashboard": {
+        "title": "Панель управления"
+    }
+    
+}

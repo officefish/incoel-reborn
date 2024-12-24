@@ -1,0 +1,16 @@
+{
+    "navigation": {
+        "dashboard": "Dashborad",
+        "settings": "Settings"
+    },
+    "additional": {
+        "theme": "Theme",
+        "language": "Language"
+    },
+    "settings": {
+        "title": "Dashboard"
+    },
+    "dashboard": {
+        "title": "Settings board"
+    }
+}
