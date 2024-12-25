@@ -1,7 +1,8 @@
 {
     "navigation": {
         "dashboard": "Dashborad",
-        "settings": "Settings"
+        "settings": "Settings",
+        "long_pooling": "Long pooling"
     },
     "additional": {
         "theme": "Theme",
@@ -12,5 +13,8 @@
     },
     "dashboard": {
         "title": "Settings board"
+    },
+    "long_pooling": {
+        "title": "Long pooling"
     }
 }

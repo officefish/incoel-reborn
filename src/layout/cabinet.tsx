@@ -7,6 +7,7 @@ import { Route, Routes } from "react-router-dom"
 import Header from "./header"
 import DashboardPage from "@/pages/dashpoard.page"
 import SettingsPage from "@/pages/settings.page"
+import LongPoolingPage from "@/pages/long-pooling"
 
 //import { WithLoader } from "@/components/loading"
 //import { apiFetch } from "@/services/api"
@@ -75,6 +76,7 @@ return (
           <>
             <Route path='/' element={<DashboardPage/>}/>
             <Route path='/settings' element={<SettingsPage/>}/>
+            <Route path='/long-pooling' element={<LongPoolingPage/>}/>
           </>
           {/* ) } */}
         </Routes>

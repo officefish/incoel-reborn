@@ -344,11 +344,11 @@ export default function HardwareSettings() {
 
       {/* <style>{c_css}</style> */}
 
-      <FrequencyModeSettings setInvalid={setInvalid} needAdvanced={needAdvanced}/>
+      {/* <FrequencyModeSettings setInvalid={setInvalid} needAdvanced={needAdvanced}/> */}
       {/* <AccurateSettings setInvalid={setInvalid}/>
       <AdvancedDeviceSettings setInvalid={setInvalid} needAdvanced={needAdvanced}/> */}
-      <VoltageSettings setInvalid={setInvalid}/>
-      <AdditionalDeviceSettings setInvalid={setInvalid} /> 
+      {/* <VoltageSettings setInvalid={setInvalid}/> */}
+      {/* <AdditionalDeviceSettings setInvalid={setInvalid} />  */}
     </div>
   </div>
 }

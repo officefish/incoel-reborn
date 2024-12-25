@@ -1,7 +1,8 @@
 {
     "navigation": {
         "dashboard": "Панель управления",
-        "settings": "Настройки"
+        "settings": "Настройки",
+        "long_pooling": "Лонг пулинг"
     },
     "additional": {
         "theme": "Тема",
@@ -12,6 +13,9 @@
     },
     "dashboard": {
         "title": "Панель управления"
+    },
+    "long_pooling": {
+        "title": "Лонг пулинг"
     }
     
 }

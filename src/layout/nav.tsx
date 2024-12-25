@@ -17,7 +17,9 @@ const Navigation: FC = () => {
     flex flex-row items-center justify-evenly w-full
     `}>
       <NavButton selected={page === Page.DASHBOARD} to={'/'} title={t('navigation.dashboard')} index={0}/> 
-      <NavButton selected={page === Page.SETTINGS} to={'/settings'} title={t('navigation.settings')} index={4}/>
+      <NavButton selected={page === Page.SETTINGS} to={'/settings'} title={t('navigation.settings')} index={1}/>
+      <NavButton selected={page === Page.LONG_POOLING} to={'/long-pooling'} title={t('navigation.long_pooling')} index={2}/>
+
     </div>
 }
 export default Navigation
