@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom"
 import { useSiteStore } from "@/providers/site";
 import { Page } from "@/types"
-import {FC, useEffect, useState} from "react";
+import {FC, 
+    //useEffect, 
+    //useState
+} from "react";
 import { useTranslation } from "react-i18next";
 //import { useLocationStore } from "@/providers/location";
 

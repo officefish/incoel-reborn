@@ -7,5 +7,5 @@ export type ConfigType = {
 
 export const Config: ConfigType = {
   mode: import.meta.env.VITE_RUN_MODE,
-  url: import.meta.env.VITE_API_URL,
+  url: import.meta.env.VITE_CGI_URL,
 }

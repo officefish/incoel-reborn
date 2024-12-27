@@ -1,7 +1,8 @@
 //import { enqueueSnackbar, OptionsObject } from 'notistack';
 //import Auth from './auth';
-import { useCallback, useState } from 'react';
+//import { useCallback, useState } from 'react';
 import {Config} from "@/config";
+import { useCallback, useEffect, useState } from "react";
 //import Auth from "./auth"
 //import { useCallback } from 'react';
 
@@ -10,7 +11,7 @@ import {Config} from "@/config";
 export const apiURL = Config.url
 
 
-export async function cgiFetch<T>(
+export async function cgiFetchNoTimeout<T>(
     url: string,
     method: string,
     body: Record<string, unknown> | null = null,
@@ -28,15 +29,15 @@ export async function cgiFetch<T>(
     };
 
     try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000); // Таймаут 10 секунд
+      //const controller = new AbortController();
+      //const timeoutId = setTimeout(() => controller.abort(), 10000); // Таймаут 10 секунд
 
       const response = await fetch(`${apiURL}${url}`, {
         ...options,
-        signal: controller.signal
+        //signal: controller.signal
       });
 
-      clearTimeout(timeoutId);
+      //clearTimeout(timeoutId);
 
       if (!response.ok) {
         const res = await response.json()
@@ -65,37 +66,46 @@ export async function cgiFetch<T>(
     //     enqueueSnackbar('An unknown error occurred', { variant: 'error' });
     //   }
     }
+
+   
   }
 
-  export function useFetcher<T> (hook: any) {
-  
-      const [data, setData] = useState<T | null>(null)
+  export function useLongPoolingFetcher<T> (hook: any) {
 
-      const [isLoading, setIsLoading] = useState<boolean>(false)
-  
-      const onSuccess = useCallback(
-        (res: T) => {
-          setData(res)
-          setIsLoading(false)
-      }, [])
-  
-      const onError = useCallback(
-        (err: any) => {
-          setData(null)
-          setIsLoading(false)
-      }, []);
-  
-      const fetcher = Object.values(hook(cgiFetch, onSuccess, onError))[0];
-      
-      const handler = () => {
-        if (typeof fetcher === 'function') {
-          setIsLoading(true)
-          fetcher()
-        }
+    const [data, setData] = useState<T | null>(null)
+    const [longEnabled, setLongEnabled] = useState(false)
+
+    const onSuccess = useCallback(
+      (res: T) => {
+        setData(res)
+    }, [longEnabled])
+
+    const onError = useCallback(
+      (err: any) => {
+        console.error(err)
+        setData(null)
+    }, []);
+
+    const fetcher = Object.values(hook(cgiFetchNoTimeout, onSuccess, onError))[0];
+    
+    useEffect(() => {
+      if (fetcher  
+        && 
+        typeof fetcher === 'function'
+        &&
+        longEnabled
+      ) {
+        fetcher()
       }
 
-      // if (typeof fetcher === 'function' && data === null) {
-      //   fetcher()
-      // }
-      return { handler, data, isLoading }
-    }
+    }, [data]);
+
+    const handler = () => {
+      if (typeof fetcher === 'function') {
+          fetcher()
+      }
+     }
+
+
+    return { handler, data, longEnabled, setLongEnabled }
+  }

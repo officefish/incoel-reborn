@@ -9,12 +9,20 @@
         "language": "Language"
     },
     "settings": {
-        "title": "Dashboard"
-    },
-    "dashboard": {
         "title": "Settings board"
     },
+    "dashboard": {
+        "title": "Dashboard"
+    },
     "long_pooling": {
-        "title": "Long pooling"
+        "title": "Long pooling",
+        "table": {
+            "header": {
+                "request": "Request",
+                "fetch": "Fetch",
+                "long_pooling": "Long pooling",
+                "response": "Response"
+            }
+        }
     }
 }
