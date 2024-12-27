@@ -1,3 +1,4 @@
+import { useNetworkStore } from '@/providers/network';
 import { useCallback } from 'react'
 //import { useSnackbar } from 'notistack' // Assuming you're using notistack for notifications
 //import { useUserStore } from '@/providers/user';
@@ -5,7 +6,7 @@ import { useCallback } from 'react'
 export const useNetworkInfo = (cgiFetch: any, onSuccess?: (response: any) => void, onError?: (error: any) => void) => {
   //const { enqueueSnackbar } = useSnackbar();
 
-  //const { setDailyQuest, setMinigame } = useUserStore();
+  const { setNetwork } = useNetworkStore();
 
   const networkInfo = useCallback(
     async () => {
@@ -15,11 +16,12 @@ export const useNetworkInfo = (cgiFetch: any, onSuccess?: (response: any) => voi
         
         console.log(res)
 
+        if (res) {
+          setNetwork(res);
+        }
+
         onSuccess && onSuccess(res);
 
-        // if (res.dailyReward) {
-        //     setDailyQuest(res.dailyReward);
-        // }
 
         // if (res.minigame) {
         //     setMinigame(res.minigame);
