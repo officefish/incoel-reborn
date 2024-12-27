@@ -67,7 +67,7 @@ export async function cgiFetch<T>(
     }
   }
 
-  export function useFetcher<T> (hook: any) {
+  export function useFetcher<T> (hook: any, initialFetch: boolean = false) {
   
       const [data, setData] = useState<T | null>(null)
 
@@ -94,8 +94,10 @@ export async function cgiFetch<T>(
         }
       }
 
-      // if (typeof fetcher === 'function' && data === null) {
-      //   fetcher()
-      // }
+      if (
+        typeof fetcher === 'function' 
+        && initialFetch) {
+         fetcher()
+      }
       return { handler, data, isLoading }
     }
