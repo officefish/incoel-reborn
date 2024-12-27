@@ -11,7 +11,7 @@ export const useGetHelloWorld = (cgiFetch: any, onSuccess?: (response: any) => v
     async () => {
    
       try {
-        const res = await cgiFetch('/hello_world.cgi', 'GET', null);
+        const res = await cgiFetch('/cgi-bin/hello_world.cgi', 'GET', null);
         
         console.log(res)
 

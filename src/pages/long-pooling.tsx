@@ -1,5 +1,8 @@
-import { useGetBlinkStatus } from "@/hooks/cgi/useGetBlinkStatus";
-import { useGetRandomElapsed } from "@/hooks/cgi/useGetRandomElapsed";
+import { useAutoUpgradeConfig } from "@/hooks/cgi/useAutoUpgradeConfig";
+import { useBlinkStatus } from "@/hooks/cgi/useBlinkStatus";
+import { useRandomElapsed } from "@/hooks/cgi/useRandomElapsed";
+import { useServerSettings } from "@/hooks/cgi/useSettings";
+import { useStats } from "@/hooks/cgi/useStats";
 import { useFetcher } from "@/services/cgi/cgi.fetch";
 import { 
     //cgiFetchNoTimeout, 
@@ -19,14 +22,29 @@ const LongPoolingPage: FC  = () => {
     const {
         handler: fetchBlinkStatus,  
         data: blinkStatusJSON,
-    } = useFetcher<ReactJsonViewProps>(useGetBlinkStatus)
+    } = useFetcher<ReactJsonViewProps>(useBlinkStatus)
+
+    const {
+        handler: fetchSettings,
+        data: settingsJSON,
+    } = useFetcher<ReactJsonViewProps>(useServerSettings)
+
+    const {
+        handler: fetchAutoUpgrade,
+        data: autoUpgradeJSON,
+    } = useFetcher<ReactJsonViewProps>(useAutoUpgradeConfig)
+
+    const {
+        handler: fetchStats,
+        data: statsJSON,
+    } = useFetcher<ReactJsonViewProps>(useStats)
 
     const { 
         handler: fetchRandomElapsed, 
         data: randomElapsedJSON,
         longEnabled: randomElapsedLongEnabled,
         setLongEnabled: setRandomElapsedLongEnabled
-    } = useLongPoolingFetcher<ReactJsonViewProps>(useGetRandomElapsed);
+    } = useLongPoolingFetcher<ReactJsonViewProps>(useRandomElapsed);
 
    
     return <section className="">
@@ -43,7 +61,7 @@ const LongPoolingPage: FC  = () => {
                 </thead>
                 <tbody>                  
                         <tr>
-                            <td>getBlinkStatus</td>
+                            <td>Blink Status</td>
                             <td><button className="btn btn-primary btn-md" onClick={fetchBlinkStatus}>fetch</button></td>
                             <td><InDev /></td>
                             <td>{ blinkStatusJSON && (
@@ -51,7 +69,31 @@ const LongPoolingPage: FC  = () => {
                             )}</td>
                         </tr>
                         <tr>
-                            <td>getRandomElapsed</td>
+                            <td>Settings</td>
+                            <td><button className="btn btn-primary btn-md" onClick={fetchSettings}>fetch</button></td>
+                            <td><InDev /></td>
+                            <td>{ settingsJSON && (
+                                <ReactJson src={settingsJSON} />
+                            )}</td>
+                        </tr>
+                        <tr>
+                            <td>Auto Upgrade Config</td>
+                            <td><button className="btn btn-primary btn-md" onClick={fetchAutoUpgrade}>fetch</button></td>
+                            <td><InDev /></td>
+                            <td>{ autoUpgradeJSON && (
+                                <ReactJson src={autoUpgradeJSON} />
+                            )}</td>
+                        </tr>
+                        <tr>
+                            <td>Stats</td>
+                            <td><button className="btn btn-primary btn-md" onClick={fetchStats}>fetch</button></td>
+                            <td><InDev /></td>
+                            <td>{ statsJSON && (
+                                <ReactJson src={statsJSON} />
+                            )}</td>
+                        </tr>
+                        <tr>
+                            <td>Random Elapsed</td>
                             <td><button className="btn btn-primary btn-md" onClick={fetchRandomElapsed}>fetch</button></td>
                             <td>
                                 <div className="flex flex-row items-center justify-start gap-3 text-sm italic text-primary">

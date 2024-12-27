@@ -2,16 +2,16 @@ import { useCallback } from 'react'
 //import { useSnackbar } from 'notistack' // Assuming you're using notistack for notifications
 //import { useUserStore } from '@/providers/user';
 
-export const useGetLongPooling = (cgiFetch: any, onSuccess?: (response: any) => void, onError?: (error: any) => void) => {
+export const useAutoUpgradeConfig = (cgiFetch: any, onSuccess?: (response: any) => void, onError?: (error: any) => void) => {
   //const { enqueueSnackbar } = useSnackbar();
 
   //const { setDailyQuest, setMinigame } = useUserStore();
 
-  const getLongPooling = useCallback(
+  const autoUpgradeConfig = useCallback(
     async () => {
    
       try {
-        const res = await cgiFetch('/cgi-bin/long_pooling.cgi', 'GET', null);
+        const res = await cgiFetch('/cgi-bin_n/tools/autoupgrade_config_get.cgi', 'GET', null);
         
         console.log(res)
 
@@ -38,5 +38,5 @@ export const useGetLongPooling = (cgiFetch: any, onSuccess?: (response: any) => 
     ] // Dependencies
   )
 
-  return { getLongPooling }
+  return { autoUpgradeConfig }
 }

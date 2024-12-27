@@ -2,16 +2,16 @@ import { useCallback } from 'react'
 //import { useSnackbar } from 'notistack' // Assuming you're using notistack for notifications
 //import { useUserStore } from '@/providers/user';
 
-export const useGetBlinkStatus = (cgiFetch: any, onSuccess?: (response: any) => void, onError?: (error: any) => void) => {
+export const useRandomElapsed = (cgiFetch: any, onSuccess?: (response: any) => void, onError?: (error: any) => void) => {
   //const { enqueueSnackbar } = useSnackbar();
 
   //const { setDailyQuest, setMinigame } = useUserStore();
 
-  const getBlinkStatus = useCallback(
+  const randomElapsed = useCallback(
     async () => {
    
       try {
-        const res = await cgiFetch('/get_blink_status.cgi', 'GET', null);
+        const res = await cgiFetch('/cgi-bin/random_elapsed.cgi', 'GET', null);
         
         console.log(res)
 
@@ -38,5 +38,5 @@ export const useGetBlinkStatus = (cgiFetch: any, onSuccess?: (response: any) => 
     ] // Dependencies
   )
 
-  return { getBlinkStatus }
+  return { randomElapsed }
 }

@@ -2,16 +2,16 @@ import { useCallback } from 'react'
 //import { useSnackbar } from 'notistack' // Assuming you're using notistack for notifications
 //import { useUserStore } from '@/providers/user';
 
-export const useGetRandomElapsed = (cgiFetch: any, onSuccess?: (response: any) => void, onError?: (error: any) => void) => {
+export const useServerSettings = (cgiFetch: any, onSuccess?: (response: any) => void, onError?: (error: any) => void) => {
   //const { enqueueSnackbar } = useSnackbar();
 
   //const { setDailyQuest, setMinigame } = useUserStore();
 
-  const getRandomElapsed = useCallback(
+  const getServerSettings = useCallback(
     async () => {
    
       try {
-        const res = await cgiFetch('/random_elapsed.cgi', 'GET', null);
+        const res = await cgiFetch('/cgi-bin_n/settings.cgi', 'GET', null);
         
         console.log(res)
 
@@ -38,5 +38,5 @@ export const useGetRandomElapsed = (cgiFetch: any, onSuccess?: (response: any) =
     ] // Dependencies
   )
 
-  return { getRandomElapsed }
+  return { getServerSettings }
 }
