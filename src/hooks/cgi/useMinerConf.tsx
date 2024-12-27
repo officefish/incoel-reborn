@@ -1,3 +1,4 @@
+import { useMinerStore } from '@/providers/miner';
 import { useCallback } from 'react'
 //import { useSnackbar } from 'notistack' // Assuming you're using notistack for notifications
 //import { useUserStore } from '@/providers/user';
@@ -5,7 +6,7 @@ import { useCallback } from 'react'
 export const useMinerConf = (cgiFetch: any, onSuccess?: (response: any) => void, onError?: (error: any) => void) => {
   //const { enqueueSnackbar } = useSnackbar();
 
-  //const { setDailyQuest, setMinigame } = useUserStore();
+  const { setMiner } = useMinerStore();
 
   const minerConf = useCallback(
     async () => {
@@ -15,15 +16,11 @@ export const useMinerConf = (cgiFetch: any, onSuccess?: (response: any) => void,
         
         console.log(res)
 
+        if (res) {
+          setMiner(res);
+        }
+        
         onSuccess && onSuccess(res);
-
-        // if (res.dailyReward) {
-        //     setDailyQuest(res.dailyReward);
-        // }
-
-        // if (res.minigame) {
-        //     setMinigame(res.minigame);
-        // }
         
       } catch (error: any) {
         //enqueueSnackbar(`Error during allQuestsInfo: ${error}`, { variant: 'error' });

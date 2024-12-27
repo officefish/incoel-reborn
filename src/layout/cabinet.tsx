@@ -8,6 +8,8 @@ import Header from "./header"
 import DashboardPage from "@/pages/dashpoard.page"
 import SettingsPage from "@/pages/settings.page"
 import LongPoolingPage from "@/pages/long-pooling"
+import { useMinerConf } from "@/hooks/cgi/useMinerConf"
+import { cgiFetch } from "@/services/cgi/cgi.fetch"
 
 //import { WithLoader } from "@/components/loading"
 //import { apiFetch } from "@/services/api"
@@ -30,10 +32,13 @@ const Cabinet:FC = () => {
 //   const { updateFortunes } = useUpdateFortunes(apiFetch)
 //   const { updateLocation } = useUpdateLocation(apiFetch)
 
+const { minerConf } = useMinerConf(cgiFetch)
+
   const loadResources = async () => {
     // console.log("Loading resources")
 
-    //const apiRequests = [
+    const apiRequests = [
+      minerConf()
     //   updateBalance(),
     //   updateFortunes(),
     //   updateLocation(),
@@ -42,13 +47,14 @@ const Cabinet:FC = () => {
       //updateTasks(),
       //updateDailyQuest(),
       //getOKXStatus(),
-   // ];
 
-    //Promise.all([...apiRequests],).then(() => {
+    ];
+
+    Promise.all([...apiRequests],).then(() => {
       //setIsLoading(false)
-      //console.log('complete load resources')
-      // TODO: все ресурсы загружены можно выходить из прелоадера
-   // })
+      console.log('complete load resources')
+      //TODO: все ресурсы загружены можно выходить из прелоадера
+   })
     
   }
 
