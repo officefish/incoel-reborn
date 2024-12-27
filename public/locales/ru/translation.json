@@ -18,7 +18,7 @@
         "title": "Лонг пулинг",
         "table": {
             "header": {
-                "request": "Тип запроса",
+                "request": "Запрос",
                 "fetch": "Запросить",
                 "long_pooling": "Использовать лонг пулинг",
                 "response": "Ответ"

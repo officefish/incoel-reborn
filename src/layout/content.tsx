@@ -28,7 +28,7 @@ const Content: FC <PropsWithChildren> = ({ children }) => {
 //axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`, payload);
   
     return  (   
-        <main>
+        <main className="min-h-52">
             {children}
         </main>
     ) 

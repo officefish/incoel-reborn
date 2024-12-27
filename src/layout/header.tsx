@@ -4,7 +4,7 @@ import Menu from "./menu";
 
 const Header: FC  = () => {
    
-    return <header className="flex flex-row items-start justify-between w-full h-[200px]">
+    return <header className="flex flex-row items-start justify-between w-full">
         <Navigation />
         <Menu />
     </header>

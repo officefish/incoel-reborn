@@ -17,7 +17,7 @@ const ThemeSelector: FC  = () => {
    
     <div className='dropdown'>
         <label tabIndex={0} className="btn m-1">{t('additional.theme')}: {theme}</label>
-          <ul tabIndex={0} className='dropdown-content menu p-2 shadow bg-base-100 rounded-box'>
+          <ul tabIndex={0} className='dropdown-content menu p-2 shadow bg-base-100 rounded-box z-50'>
             {themes.map((t) => (
                 <li key={t}>
                   <button onClick={() => {setTheme(t)}}>{t}</button>

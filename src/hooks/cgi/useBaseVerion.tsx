@@ -2,16 +2,16 @@ import { useCallback } from 'react'
 //import { useSnackbar } from 'notistack' // Assuming you're using notistack for notifications
 //import { useUserStore } from '@/providers/user';
 
-export const useStats = (cgiFetch: any, onSuccess?: (response: any) => void, onError?: (error: any) => void) => {
+export const useBaseVersion = (cgiFetch: any, onSuccess?: (response: any) => void, onError?: (error: any) => void) => {
   //const { enqueueSnackbar } = useSnackbar();
 
   //const { setDailyQuest, setMinigame } = useUserStore();
 
-  const stats = useCallback(
+  const baseVersion = useCallback(
     async () => {
 
       try {
-        const res = await cgiFetch('/cgi-bin/stats.cgi', 'GET', null);
+        const res = await cgiFetch('/cgi-bin_n/settings/base_version.conf', 'GET', null);
         
         if (res) {
             console.log(res)
@@ -34,5 +34,5 @@ export const useStats = (cgiFetch: any, onSuccess?: (response: any) => void, onE
     ] // Dependencies
   )
 
-  return { stats }
+  return { baseVersion }
 }
