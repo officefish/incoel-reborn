@@ -27,5 +27,8 @@
                 "response": "Response"
             }
         }
+    },
+    "logs": {
+        
     }
 }

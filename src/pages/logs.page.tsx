@@ -11,10 +11,10 @@ const LogsPage:FC = () => {
     const { logs } = useLogsStore()
    
     return <section className="mt-12">
-        <h1>{t('settings.title')}</h1>
+        <h1>{t('logs.title')}</h1>
         {/* <HardwareSettings /> */}
         <div className="mt-8">
-            <h2 className="mb-8">{t('settings.miner_config')}</h2>
+            <h2 className="mb-8">{t('logs.flow')}</h2>
             <ReactJson src={logs} />
         </div>
     </section>

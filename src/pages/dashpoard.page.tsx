@@ -1,6 +1,8 @@
 import { useAccountStore } from "@/providers/account";
 import { useNetworkStore } from "@/providers/network";
-import { FC, useState } from "react";
+import { FC, 
+    //useState 
+} from "react";
 import { useTranslation } from "react-i18next";
 import ReactJson from "react-json-view";
 
@@ -39,8 +41,7 @@ const DashboardPage: FC  = () => {
        {/* {
         messages.map(msg => <p key={msg}>{msg}</p>)
        } */}
-
-
+       
     </section>
 }
 export default DashboardPage
