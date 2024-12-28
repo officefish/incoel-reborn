@@ -22,7 +22,7 @@ const Navigation: FC = () => {
       <NavButton selected={page === Page.DASHBOARD} to={'/'} title={t('navigation.dashboard')} index={0}/> 
       <NavButton selected={page === Page.SETTINGS} to={'/settings'} title={t('navigation.settings')} index={1}/>
       <NavButton selected={page === Page.LONG_POOLING} to={'/long-pooling'} title={t('navigation.long_pooling')} index={2}/>
-
+      <NavButton selected={page === Page.LOGS} to={'/logs'} title={t('navigation.logs')} index={3}/>
     </div>
 }
 export default Navigation

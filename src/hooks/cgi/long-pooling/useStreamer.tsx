@@ -1,13 +1,15 @@
+import { useLogsStore } from "@/providers/logs";
 import { cgiFetchNoTimeout } from "@/services/cgi/cgi.fetch.no-timeout";
+import { ILog } from "@/types/logs";
 import { useCallback, useEffect, useState } from "react";
 
+export const useFetcher = (
+  cgiFetch: any, 
+  onSuccess?: (response: any) => void, 
+  onError?: (error: any) => void) => {
 
-
-export const useFetcher = (cgiFetch: any, onSuccess?: (response: any) => void, onError?: (error: any) => void) => {
-    //const { enqueueSnackbar } = useSnackbar();
-  
-    //const { setDailyQuest, setMinigame } = useUserStore();
-  
+    const { appendLogs } = useLogsStore()
+   
     const fetcher = useCallback(
       async (id: string) => {
   
@@ -15,26 +17,19 @@ export const useFetcher = (cgiFetch: any, onSuccess?: (response: any) => void, o
           const res = await cgiFetch(`/cgi-bin_n/streamer.cgi?id=${id}`, 'GET', null);
           
           console.log(res)
-  
+
+          if(res.logs as ILog[]) {
+            appendLogs(res.logs);
+          }
+
           onSuccess && onSuccess(res);
   
-          // if (res.dailyReward) {
-          //     setDailyQuest(res.dailyReward);
-          // }
-  
-          // if (res.minigame) {
-          //     setMinigame(res.minigame);
-          // }
-          
         } catch (error: any) {
           //enqueueSnackbar(`Error during allQuestsInfo: ${error}`, { variant: 'error' });
           onError && onError(error);
-        } finally {
-          
-        }
+        } finally {}
       },
-      [
-          cgiFetch, 
+      [cgiFetch, 
           //enqueueSnackbar
       ] // Dependencies
     )
@@ -45,6 +40,8 @@ export const useFetcher = (cgiFetch: any, onSuccess?: (response: any) => void, o
 export function useStreamer<T> (id: string) {
 
     const [data, setData] = useState<T | null>(null)
+    const [error, setError] = useState<Error | null>(null)
+
     const [longEnabled, setLongEnabled] = useState(false)
 
     const onSuccess = useCallback(
@@ -56,19 +53,31 @@ export function useStreamer<T> (id: string) {
       (err: any) => {
         console.error(err)
         setData(null)
+        setError(err)
     }, []);
 
     const { fetcher } = useFetcher(cgiFetchNoTimeout, onSuccess, onError);
     
+    /* Мнговенный повторный вызов в режиме лонг пулинг */
     useEffect(() => { 
         if (longEnabled) {
             fetcher(id)
         } 
     }, [data]);
 
-    const handler = () => {
-        fetcher(id)
-    }
+    /* Отложенный вызов (через 10 секунд) при ошибке */
+    useEffect(() => {
+      const handler = setTimeout(() => {
+        if (error) {
+          fetcher(id)
+        }
+      }, 10_000)// 10 seconds
+      return () => {
+        clearTimeout(handler)
+      }
+    }, [error])
 
+    const handler = () => fetcher(id)
+    
     return { handler, data, longEnabled, setLongEnabled }
   }

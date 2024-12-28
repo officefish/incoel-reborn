@@ -4,6 +4,7 @@ import { HardwareProvider } from "./settings"
 import { MinerProvider } from "./miner"
 import { NetworkProvider } from "./network"
 import { AccountProvider } from "./account"
+import { LogsProvider } from "./logs"
 
 //import {Snackbar} from "@/providers/snackbar.tsx";
 
@@ -15,7 +16,9 @@ const Providers: FC <PropsWithChildren> = ({ children }) => {
             <MinerProvider>
             <NetworkProvider>
             <AccountProvider>
+            <LogsProvider>
                 {children}
+            </LogsProvider>
             </AccountProvider>
             </NetworkProvider>
             </MinerProvider>    

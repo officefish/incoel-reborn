@@ -1,4 +1,6 @@
 #!/bin/bash
+. ../include/jshn.sh
+
 echo ""
 echo ""
 
@@ -21,6 +23,13 @@ if [[ -z "$safe_id" ]]; then
   exit 1
 fi
 
+# Проверяем, что утилита jshn.sh доступна
+if ! command -v json_init &> /dev/null; then
+  echo "{\"error\": \"jshn.sh не установлена или недоступна\"}"
+  exit 1
+fi
+
+
 # Определяем путь к файлу
 directory="/tmp/streams"
 mkdir -p "$directory"
@@ -34,7 +43,38 @@ fi
 
 # Создаем файл
 if echo "{\"log\":\"initial\"}" > "$file_path"; then
-  echo "{\"msg\":\"file '$file_path' created\"}"
+  
+  #echo "{\"msg\":\"file '$file_path' created\"}"
+
+  # Загружаем логи с помощью dmesg
+  logs=$(dmesg)
+
+  # Преобразуем каждую строку в объект JSON
+  json_logs=$(echo "$logs" | sed 's/^ *//;s/ *$//' | awk '{
+  gsub(/"/, "\\\""); # Экранируем кавычки
+  printf "{\"log\": \"%s\"},\n", $0
+  }' | sed '$ s/,$//') # Убираем последнюю запятую
+
+  echo "{\"logs\":[$json_logs]}"
+
+# . /tmp/jshn/$safe_id.json
+# json_init
+
+# # Добавляем массив "logs"
+# json_add_array logs
+# while read -r line; do
+#   # Удаляем лишние пробелы и экранируем символы
+#   trimmed_line=$(echo "$line" | sed 's/^ *//;s/ *$//')
+#   json_add_object
+#   json_add_string log "$trimmed_line"
+#   json_close_object
+# done <<< "$logs"
+# json_close_array
+
+# # Выводим JSON
+# json_dump
+
+  
   exit 0
 else
   echo "{\"error\":\"error with '$file_path' creation\"}"  

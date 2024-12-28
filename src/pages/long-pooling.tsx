@@ -274,29 +274,51 @@ const LongPoolingPage: FC  = () => {
                             )}</td>
                         </tr>
 
-                        <tr>
-                            <td>/cgi-bin_n/streamer.cgi</td>
-                            <td><button className="btn btn-primary btn-md" onClick={() => {fetchStreamer()}}>fetch</button></td>
-                            <td>
-                                <div className="flex flex-row items-center justify-start gap-3 text-sm italic text-primary">
-                                <label htmlFor="">long pooling mode: </label>
-                                <input type="radio" className="radio radio-md radio-primary" 
-                                checked={streamerLongEnabled} 
-                                onClick={() => setStreamerLongEnabled(!streamerLongEnabled)} 
-                                onChange={() => {}} 
-                                />
-                                </div>
-                            </td>   
-                            <td>{ streamerJSON && (
-                                <ReactJson src={streamerJSON || {}} />
-                            )}</td>
-                        </tr>
+                        <LongPoolingListItem 
+                            title="/cgi-bin_n/streamer.cgi"
+                            fetcher={fetchStreamer}
+                            longEnabled={streamerLongEnabled}
+                            setLongEnabled={setStreamerLongEnabled}
+                            json={streamerJSON}
+                        />
                 </tbody>
             </table>
         </div>
     </section>
 }
 export default LongPoolingPage
+
+interface ILPListItemProps {
+    title: string
+    fetcher: () => void
+    longEnabled: boolean
+    setLongEnabled: (enabled: boolean) => void
+    json: ReactJsonViewProps | null
+} 
+
+const LongPoolingListItem: FC<ILPListItemProps> = (props) => {
+    const { title, fetcher, longEnabled, setLongEnabled, json } = props
+   
+    return (
+    <tr>
+        <td>{title}</td>
+        <td><button className="btn btn-primary btn-md" onClick={() => {fetcher()}}>fetch</button></td>
+        <td>
+            <div className="flex flex-row items-center justify-start gap-3 text-sm italic text-primary">
+                <label>long pooling mode: </label>
+                <input type="radio" className="radio radio-md radio-primary" 
+                checked={longEnabled} 
+                onClick={() => setLongEnabled(!longEnabled)} 
+                onChange={() => {}} 
+                />
+            </div>
+        </td>   
+        <td>{ json && (
+            <ReactJson src={json || {}} />
+        )}</td>
+    </tr>  
+   ) 
+}
 
 const InDev: FC = () => {
     return <span className="text-md text-warning">in development</span>

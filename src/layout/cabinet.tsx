@@ -12,6 +12,7 @@ import { useMinerConf } from "@/hooks/cgi/useMinerConf"
 import { cgiFetch } from "@/services/cgi/cgi.fetch"
 import { getRandomInt } from "@/utils/getRandomInt"
 import { useAccountStore } from "@/providers/account"
+import LogsPage from "@/pages/logs.page"
 
 //import { WithLoader } from "@/components/loading"
 //import { apiFetch } from "@/services/api"
@@ -93,6 +94,7 @@ return (
             <Route path='/' element={<DashboardPage/>}/>
             <Route path='/settings' element={<SettingsPage/>}/>
             <Route path='/long-pooling' element={<LongPoolingPage/>}/>
+            <Route path='/logs' element={<LogsPage/>}/>
           </>
           {/* ) } */}
         </Routes>

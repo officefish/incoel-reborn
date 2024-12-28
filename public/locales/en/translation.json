@@ -10,7 +10,9 @@
     },
     "settings": {
         "title": "Settings board",
-        "miner_config": "Miner Config"
+        "miner_config": "Miner Config",
+        "account": "Account",
+        "network": "Network"
     },
     "dashboard": {
         "title": "Dashboard"
