@@ -23,6 +23,9 @@ const createAccountStore = () =>
   createStore<IAccountStore>()((set) => ({
     account: DefaultAccount,
     setAccount: (account: IAccountSettings) => set(() => ({ account })),
+    streamId: "1",
+    setStreamId: (streamId: string) => set(() => ({ streamId })),
+    
   }))
 
   type Store = ReturnType<typeof createAccountStore>
@@ -33,6 +36,8 @@ const createAccountStore = () =>
     return {
       account: useStore(api, (state) => state.account),
       setAccount: useStore(api, (state) => state.setAccount),
+      streamId: useStore(api, (state) => state.streamId),
+      setStreamId: useStore(api, (state) => state.setStreamId),
     }
   }
 

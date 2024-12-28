@@ -10,6 +10,8 @@ import SettingsPage from "@/pages/settings.page"
 import LongPoolingPage from "@/pages/long-pooling"
 import { useMinerConf } from "@/hooks/cgi/useMinerConf"
 import { cgiFetch } from "@/services/cgi/cgi.fetch"
+import { getRandomInt } from "@/utils/getRandomInt"
+import { useAccountStore } from "@/providers/account"
 
 //import { WithLoader } from "@/components/loading"
 //import { apiFetch } from "@/services/api"
@@ -33,6 +35,7 @@ const Cabinet:FC = () => {
 //   const { updateLocation } = useUpdateLocation(apiFetch)
 
 const { minerConf } = useMinerConf(cgiFetch)
+const { setStreamId } = useAccountStore()
 
   const loadResources = async () => {
     // console.log("Loading resources")
@@ -50,9 +53,16 @@ const { minerConf } = useMinerConf(cgiFetch)
 
     ];
 
+
     Promise.all([...apiRequests],).then(() => {
       //setIsLoading(false)
       console.log('complete load resources')
+
+      const streamId = getRandomInt(1, Number.MAX_SAFE_INTEGER).toString();
+      setStreamId(streamId)
+
+      console.log('streamId: ', streamId)
+
       //TODO: все ресурсы загружены можно выходить из прелоадера
    })
     

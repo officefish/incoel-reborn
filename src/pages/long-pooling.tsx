@@ -1,3 +1,4 @@
+import { useStreamer } from "@/hooks/cgi/long-pooling/useStreamer";
 import { useBaseVersion } from "@/hooks/cgi/useBaseVerion";
 import { useBlinkStatus } from "@/hooks/cgi/useBlinkStatus";
 import { useChart } from "@/hooks/cgi/useCharts";
@@ -13,11 +14,12 @@ import { useServerSettings } from "@/hooks/cgi/useSettings";
 import { useStats } from "@/hooks/cgi/useStats";
 import { useSummary } from "@/hooks/cgi/useSummary";
 import { useVersions } from "@/hooks/cgi/useVersions";
+import { useAccountStore } from "@/providers/account";
 import { useFetcher } from "@/services/cgi/cgi.fetch";
 import { 
     //cgiFetchNoTimeout, 
     useLongPoolingFetcher } from "@/services/cgi/cgi.fetch.no-timeout";
-import { FC, 
+import { FC, useState, 
     //useCallback
     // , useEffect
     // , useState
@@ -108,7 +110,18 @@ const LongPoolingPage: FC  = () => {
         setLongEnabled: setRandomElapsedLongEnabled
     } = useLongPoolingFetcher<ReactJsonViewProps>(useRandomElapsed);
 
-   
+
+    const { streamId } = useAccountStore()
+    const { 
+        handler: fetchStreamer, 
+        data: streamerJSON,
+        longEnabled: streamerLongEnabled,
+        setLongEnabled: setStreamerLongEnabled
+    } = useStreamer<ReactJsonViewProps>(streamId);
+
+
+    //const [streamId, ] = useState(getRandomInt(1, Number.MAX_SAFE_INTEGER).toString());
+
     return <section className="mt-12">
         <h1>{t('long_pooling.title')}</h1>
         <div className="overflow-x-auto mt-12">
@@ -251,13 +264,31 @@ const LongPoolingPage: FC  = () => {
                                 <label htmlFor="">long pooling mode: </label>
                                 <input type="radio" className="radio radio-md radio-primary" 
                                 checked={randomElapsedLongEnabled} 
-                                onClick={() => setRandomElapsedLongEnabled(!randomElapsedLongEnabled)} 
+                                onClick={() => setRandomElapsedLongEnabled(!randomElapsedLongEnabled)}  
                                 onChange={() => {}} 
                                 />
                                 </div>
                             </td>   
                             <td>{ randomElapsedJSON && (
                                 <ReactJson src={randomElapsedJSON || {}} />
+                            )}</td>
+                        </tr>
+
+                        <tr>
+                            <td>/cgi-bin_n/streamer.cgi</td>
+                            <td><button className="btn btn-primary btn-md" onClick={() => {fetchStreamer()}}>fetch</button></td>
+                            <td>
+                                <div className="flex flex-row items-center justify-start gap-3 text-sm italic text-primary">
+                                <label htmlFor="">long pooling mode: </label>
+                                <input type="radio" className="radio radio-md radio-primary" 
+                                checked={streamerLongEnabled} 
+                                onClick={() => setStreamerLongEnabled(!streamerLongEnabled)} 
+                                onChange={() => {}} 
+                                />
+                                </div>
+                            </td>   
+                            <td>{ streamerJSON && (
+                                <ReactJson src={streamerJSON || {}} />
                             )}</td>
                         </tr>
                 </tbody>
@@ -270,3 +301,5 @@ export default LongPoolingPage
 const InDev: FC = () => {
     return <span className="text-md text-warning">in development</span>
 }
+
+
